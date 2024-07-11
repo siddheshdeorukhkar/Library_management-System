@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Books List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+    <h1>List of Books</h1>
+    <a th:href="@{/books/new}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Add Book</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>ISBN</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Authors</th>
+            <th>Categories</th>
+            <th>Publishers</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.description}"></td>
+            <td>
+                <ul>
+                    <li th:each="author : ${book.authors}" th:text="${author.name}"></li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="category : ${book.categories}" th:text="${category.name}"></li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="publisher : ${book.publishers}" th:text="${publisher.name}"></li>
+                </ul>
+            </td>
+            <td>
+                <a th:href="@{/books/view/{id}(id=${book.id})}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                <a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                <a th:href="@{/books/delete/{id}(id=${book.id})}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
